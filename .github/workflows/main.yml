@@ -21,6 +21,6 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: ${github.repository}/${IMAGE}
-          username: ${DOCKER_USERNAME}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ${REGISTRY}
