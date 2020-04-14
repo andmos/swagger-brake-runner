@@ -2,6 +2,7 @@ name: Build and push master
 
 env:
   IMAGE: swagger-brake
+  DOCKER_USERNAME: andmos
   REGISTRY: docker.pkg.github.com
 
 on:
@@ -20,6 +21,6 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: ${github.repository}/${IMAGE}
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${DOCKER_USERNAME}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ${REGISTRY}
