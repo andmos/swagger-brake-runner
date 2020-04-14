@@ -1,0 +1,24 @@
+name: Build and push master 
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  IMAGE: swagger-brake
+  IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/${{ swagger-brake }}
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v2
+      
+      - name: Build container
+        run: | 
+        docker build -t $IMAGE -t --tag $IMAGE_BASE:latest .
+        echo  $GITHUB_TOKEN | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
+        docker push $IMAGE_BASE
