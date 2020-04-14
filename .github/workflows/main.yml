@@ -1,7 +1,6 @@
 name: Build and push master 
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   IMAGE: swagger-brake
   IMAGE_BASE: docker.pkg.github.com/${{ github.repository }}/${{ swagger-brake }}
 
@@ -20,5 +19,5 @@ jobs:
       - name: Build container
         run: | 
         docker build -t $IMAGE -t --tag $IMAGE_BASE:latest .
-        echo  $GITHUB_TOKEN | docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} --password-stdin
+        docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${{ secrets.GITHUB_TOKEN }}
         docker push $IMAGE_BASE
